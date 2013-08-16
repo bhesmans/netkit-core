@@ -22,9 +22,8 @@
 # the bash-completion package.
 
 # The following line has been introduced to ensure backward compatibility
-: ${NETKIT_HOME:=$VLAB_HOME}
 
-if [[ -z "$NETKIT_HOME" ]]; then
+if [[ ! 0 ]]; then
    echo 1>&2 "$SCRIPTNAME: The NETKIT_HOME environment variable is not properly set;"
    echo 1>&2 "please set it as described in the Netkit documentation and try"
    echo 1>&2 "again."
@@ -36,13 +35,13 @@ fi
 # because this would result in several environment variables (e.g., VM_MEMORY,
 # etc.) being permanently fixed in the user's environment, which is not what we
 # want.
-MAX_INTERFACES=$( . "$NETKIT_HOME/bin/script_utils"; echo $MAX_INTERFACES; )
+MAX_INTERFACES=$( . "[@]netkitdir[@]/bin/script_utils"; echo $MAX_INTERFACES; )
 
 _command_options() {
    # Long options
-   $NETKIT_HOME/bin/$1 --help | sed -r '/^ +-/!d; /--[-[:alnum:]]+=?/!d; s/.*(--[-[:alnum:]]+=?).*/\1/' | sort | uniq
+   [@]netkitdir[@]/bin/$1 --help | sed -r '/^ +-/!d; /--[-[:alnum:]]+=?/!d; s/.*(--[-[:alnum:]]+=?).*/\1/' | sort | uniq
    # Short options
-   $NETKIT_HOME/bin/$1 --help | sed -r '/^ +-/!d; /^ +-[^ -]/!d; s/^ +(-[^ -]).*/\1/' | sort | uniq
+   [@]netkitdir[@]/bin/$1 --help | sed -r '/^ +-/!d; /^ +-[^ -]/!d; s/^ +(-[^ -]).*/\1/' | sort | uniq
 }
 
 _intelligent_space() {

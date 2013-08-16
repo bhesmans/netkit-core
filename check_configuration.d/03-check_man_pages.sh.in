@@ -28,45 +28,31 @@
 # you should call one of the functions "check_warning" or "check_failure"
 # (depending on the severity of the problem).
 
-# Check whether NETKIT_HOME has been set
+# Check whether Netkit man pages are reachable
 
-check_message "Checking environment... "
+check_message "Checking for availability of man pages... "
 
-if [ -z "$NETKIT_HOME" ]; then
+if ! echo "${MANPATH}" | grep -qE "(:[@]netkitdir[@]\/man\/?$)|(^[@]netkitdir[@]\/man\/?:)|(:[@]netkitdir[@]\/man\/?:)"; then
    echo "failed!"
    echo
-   echo "*** Error: the environment variable NETKIT_HOME is not set. You should"
-   echo "set it to the following value:"
+   if [ -z "$MANPATH" ]; then
+      NEW_MANPATH=":${NETKIT_HOME%/}/man"
+   else
+      NEW_MANPATH="\$MANPATH::${NETKIT_HOME%/}/man"
+   fi
+   echo "*** Warning: the environment variable MANPATH is not properly set. This"
+   echo "will make man pages inaccessible. You should set it to the following"
+   echo "value (all colons must be included):"
    echo
-   echo $PWD
+   echo $NEW_MANPATH
    echo
    echo "You can use one of the following commands, depending on the shell you"
    echo "are using:"
    echo
-   echo "(for bash) export NETKIT_HOME=$PWD"
-   echo "(for csh)  setenv NETKIT_HOME $PWD"
+   echo "(for bash) export MANPATH=$NEW_MANPATH"
+   echo "(for csh)  setenv MANPATH $NEW_MANPATH"
    echo
-   check_failure
+   check_warning
 else
-   if [ "$NETKIT_HOME" != "$PWD" -a "$NETKIT_HOME" != "${PWD}/" ]; then
-      echo "failed!"
-      echo
-      echo "*** Error: the environment variable NETKIT_HOME currently points at the"
-      echo "wrong directory:"
-      echo
-      echo "(current value) $NETKIT_HOME"
-      echo "(should be)     $PWD"
-      echo
-      echo "In order to fix this, you can use one of the following commands, depending"
-      echo "on the shell you are using:"
-      echo
-      echo "(for bash) export NETKIT_HOME=$PWD"
-      echo "(for csh)  setenv NETKIT_HOME $PWD"
-      echo
-      check_failure
-   else
-      echo "passed."
-   fi
+   echo "passed."
 fi
-
-NETKIT_BIN_DIR=$NETKIT_HOME/bin

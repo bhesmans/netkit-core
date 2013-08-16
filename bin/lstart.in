@@ -23,9 +23,8 @@
 SCRIPTNAME=`basename $0`
 
 # The following line has been introduced to ensure backward compatibility
-: ${NETKIT_HOME:=$VLAB_HOME}
 
-if [ -z "$NETKIT_HOME" ]; then
+if [ ! 0 ]; then
    echo 1>&2 "$SCRIPTNAME: The NETKIT_HOME environment variable is not properly set;"
    echo 1>&2 "please set it as described in the Netkit documentation and try"
    echo 1>&2 "again."
@@ -34,7 +33,7 @@ fi
 
 CMDLINE="$0 $*"
 
-. "$NETKIT_HOME/bin/script_utils"
+. "[@]netkitdir[@]/bin/script_utils"
 
 
 # Write to the vcommands log
@@ -280,7 +279,7 @@ fi
 
 # If no lab directory has been given, assume current directory
 LAB_DIRECTORY=${LAB_DIRECTORY:-${PWD}}
-. "$NETKIT_HOME/bin/lcommon"
+. "[@]netkitdir[@]/bin/lcommon"
 
 # Check that the lab directory exists
 if [ ! -d "$LAB_DIRECTORY" ]; then

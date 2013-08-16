@@ -22,7 +22,6 @@
 # a virtual machine to the Internet.
 # It is not intended for standalone usage.
 
-: ${NETKIT_HOME:=$VLAB_HOME}
 
 # Script arguments follow (arguments from 2 to 5 are only required when action
 # is "start").

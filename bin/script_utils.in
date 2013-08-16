@@ -26,7 +26,7 @@
 
 # Read Netkit configuration
 [ -f /etc/netkit.conf ] && . "/etc/netkit.conf"
-[ -f "$NETKIT_HOME/netkit.conf" ] && . "$NETKIT_HOME/netkit.conf"
+[ -f "[@]netkitdir[@]/netkit.conf" ] && . "[@]netkitdir[@]/netkit.conf"
 [ -f "$HOME/.netkit/netkit.conf" ] && . "$HOME/.netkit/netkit.conf"
 
 # Assign default values to undefined parameters
@@ -38,8 +38,8 @@
 : ${HUB_LOG:="$HUB_SOCKET_DIR/vhubs.log"}
 : ${VM_MEMORY:=32}
 : ${VM_MEMORY_SKEW:=4}
-: ${VM_MODEL_FS:="$NETKIT_HOME/fs/netkit-fs"}
-: ${VM_KERNEL:="$NETKIT_HOME/kernel/netkit-kernel"}
+: ${VM_MODEL_FS:="[@]netkitdir[@]/fs/netkit-fs"}
+: ${VM_KERNEL:="[@]netkitdir[@]/kernel/netkit-kernel"}
 : ${VM_CON0:=xterm}
 : ${VM_CON1:=none}
 : ${CON0_PORTHELPER:="no"}
@@ -134,7 +134,7 @@ showVersion() {
    
    # Netkit version information
    echo -n "Netkit version:            "
-   NETKIT_VERSION=`cat "$NETKIT_HOME/netkit-version" 2>&1 | grep "Netkit version" `
+   NETKIT_VERSION=`cat "[@]netkitdir[@]/netkit-version" 2>&1 | grep "Netkit version" `
    if [ $? = 0 ]; then
       NETKIT_VERSION="${NETKIT_VERSION##Netkit version }"
       if echo "$NETKIT_VERSION" | grep -Eq "([0-9]+[\.\-])+[0-9]+[a-zA-Z]*$"; then
@@ -263,7 +263,7 @@ someOneUses() {
 startInetHub() {
    local HUB_COMMAND COMPLETE_COMMAND TAP_DEVICE TUNTAP_COMMAND PRESERVE_ENV
    TAP_DEVICE="nk_tap_$USER"
-   HUB_COMMAND="$NETKIT_HOME/bin/uml_switch -tap $TAP_DEVICE -hub -unix $1 </dev/null 2>&1"
+   HUB_COMMAND="[@]netkitdir[@]/bin/uml_switch -tap $TAP_DEVICE -hub -unix $1 </dev/null 2>&1"
    COMPLETE_COMMAND="${HUB_COMMAND} | awk -v SWITCHNAME=$1 -v USER=$USERID -v CURRENTDATE=\"`date +\"%Y/%m/%d %H:%M:%S\"`\" \
                '{printf \"%s %15s %25s %s\n\", CURRENTDATE, USER, SWITCHNAME, \$0}' > ${HUB_LOG} &"
    if [ ! -S "$1" ] || ! someOneUses "$1"; then
@@ -273,23 +273,23 @@ startInetHub() {
          # reasons (depends on the configuration in sudoers, and may happen even
          # when using -E)
          PRESERVE_ENV=$(env | egrep "(^NETKIT)|(^PATH=)")
-         TUNTAP_COMMAND="sudo -p \"$USER's password:\" /bin/sh -c \"eval $PRESERVE_ENV; $NETKIT_HOME/bin/manage_tuntap start $USER $2 $3 $1\""
+         TUNTAP_COMMAND="sudo -p \"$USER's password:\" /bin/sh -c \"eval $PRESERVE_ENV; [@]netkitdir[@]/bin/manage_tuntap start $USER $2 $3 $1\""
       else
-         TUNTAP_COMMAND="su -mc \"$NETKIT_HOME/bin/manage_tuntap start $USER $2 $3 $1\""
+         TUNTAP_COMMAND="su -mc \"[@]netkitdir[@]/bin/manage_tuntap start $USER $2 $3 $1\""
       fi
       if [ -z "$BE_QUIET" ]; then
          echo "******** Starting Internet connected virtual hub ********"
          echo "   $TAP_ADDRESS (host side) - $GUEST_ADDRESS (guest side)"
          echo "********     (root privileges are required)      ********"
          run_command "$JUST_PRINT" \
-                     "$NETKIT_HOME/bin/manage_tuntap start $USER $2 $3 $1" \
+                     "[@]netkitdir[@]/bin/manage_tuntap start $USER $2 $3 $1" \
                      "$TUNTAP_COMMAND" || \
             { echo 1>&2 "Error while configuring the tunnel."; exit 1; }
          echo "************** Abandoning root privileges ***************"
          echo
       else
          run_command "$JUST_PRINT" \
-                     "$NETKIT_HOME/bin/manage_tuntap start $USER $2 $3 $1" \
+                     "[@]netkitdir[@]/bin/manage_tuntap start $USER $2 $3 $1" \
                      "$TUNTAP_COMMAND" >/dev/null || \
             { echo 1>&2 "Error while configuring the tunnel."; exit 1; }
       fi
@@ -306,7 +306,7 @@ startInetHub() {
 # This function starts a hub, if it does not exist yet
 startHub() {
    local HUB_COMMAND COMPLETE_COMMAND
-   HUB_COMMAND="$NETKIT_HOME/bin/uml_switch -hub -unix $1 </dev/null 2>&1"
+   HUB_COMMAND="[@]netkitdir[@]/bin/uml_switch -hub -unix $1 </dev/null 2>&1"
    COMPLETE_COMMAND="${HUB_COMMAND} | awk -v SWITCHNAME=$1 -v USER=$USERID -v CURRENTDATE=\"`date +\"%Y/%m/%d %H:%M:%S\"`\" \
                 '{printf \"%s %15s %25s %s\n\", CURRENTDATE, USER, SWITCHNAME, \$0}' > ${HUB_LOG} &"
    if [ ! -S "$1" ]; then

@@ -28,9 +28,8 @@
 SCRIPTNAME=`basename $0`
 
 # The following line has been introduced to ensure backward compatibility
-: ${NETKIT_HOME:=$VLAB_HOME}
 
-if [ -z "$NETKIT_HOME" ]; then
+if [ ! 0 ]; then
    echo 1>&2 "$SCRIPTNAME: The NETKIT_HOME environment variable is not properly set;"
    echo 1>&2 "please set it as described in the Netkit documentation and try"
    echo 1>&2 "again."
@@ -39,7 +38,7 @@ fi
 
 CMDLINE="$0 $*"
 
-. "$NETKIT_HOME/bin/script_utils"
+. "[@]netkitdir[@]/bin/script_utils"
 
 # Write to the vcommands log
 logWrite $0 $*
@@ -314,8 +313,8 @@ invokeMconsole() {
             print "INTERFACE=" $1
          }'`
       eval "$EVAL_THIS"
-      run_command "$JUST_PRINT" "$NETKIT_HOME/bin/uml_mconsole $VMINFO_NAME $ACTION" \
-         "$NETKIT_HOME/bin/uml_mconsole $VMINFO_NAME $ACTION 2>&1 | \
+      run_command "$JUST_PRINT" "[@]netkitdir[@]/bin/uml_mconsole $VMINFO_NAME $ACTION" \
+         "[@]netkitdir[@]/bin/uml_mconsole $VMINFO_NAME $ACTION 2>&1 | \
           awk '/^ERR/ {gsub(\"^ERR *\", \"\"); print \"Failed to '$ACTION_DESC' interface: \" \$0}' 2>&1"
       shift
    done

@@ -38,7 +38,7 @@ containing the name of the command, the user who started it and a timestamp is
 added to this file. Different users can share the same file. Setting this
 parameter to an empty string disables command logging.
 
-\fISuggested value\fR: $NETKIT_HOME/netkit_commands.log
+\fISuggested value\fR: [@]netkitdir[@]/netkit_commands.log
 .br
 \fIDefault if no setting\fR: "" (logging disabled)
 
@@ -177,9 +177,9 @@ model files).
 
 \fIvstart options\fR: \fB\-\-model\-fs\fR, \fB\-m\fR
 .br
-\fISuggested value\fR: $NETKIT_HOME/fs/netkit-fs
+\fISuggested value\fR: [@]netkitdir[@]/fs/netkit-fs
 .br
-\fIDefault if no setting\fR: $NETKIT_HOME/fs/netkit-fs
+\fIDefault if no setting\fR: [@]netkitdir[@]/fs/netkit-fs
 
 .TP
 .B
@@ -194,9 +194,9 @@ the README in the Netkit kernel package for details on how to do this).
 
 \fIvstart options\fR: \fB\-\-kernel\fR, \fB\-k\fR
 .br
-\fISuggested value\fR: $NETKIT_HOME/kernel/netkit-kernel
+\fISuggested value\fR: [@]netkitdir[@]/kernel/netkit-kernel
 .br
-\fIDefault if no setting\fR: $NETKIT_HOME/kernel/netkit-kernel
+\fIDefault if no setting\fR: [@]netkitdir[@]/kernel/netkit-kernel
 
 .TP
 .B
@@ -493,7 +493,7 @@ Terminal emulator application to be used for consoles in \fBxterm\fR mode.
 #!/bin/false
 # The above line prevents execution of this file
 
-LOGFILENAME="$NETKIT_HOME/netkit_commands.log"
+LOGFILENAME="[@]netkitdir[@]/netkit_commands.log"
 
 MCONSOLE_DIR="$HOME/.netkit/mconsole"
 HUB_SOCKET_DIR="$HOME/.netkit/hubs"
@@ -505,8 +505,8 @@ USE_SUDO=yes
 
 VM_MEMORY=32
 VM_MEMORY_SKEW=4
-VM_MODEL_FS="$NETKIT_HOME/fs/netkit-fs"
-VM_KERNEL="$NETKIT_HOME/kernel/netkit-kernel"
+VM_MODEL_FS="[@]netkitdir[@]/fs/netkit-fs"
+VM_KERNEL="[@]netkitdir[@]/kernel/netkit-kernel"
 
 VM_CON0=xterm
 VM_CON1=none
@@ -539,7 +539,7 @@ settings.
 
 .TP
 .I
-$NETKIT_HOME/netkit.conf
+[@]netkitdir[@]/netkit.conf
 This file may contain settings that are specific for a certain Netkit distribution.
 
 .TP

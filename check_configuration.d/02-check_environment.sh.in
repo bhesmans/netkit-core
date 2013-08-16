@@ -28,31 +28,45 @@
 # you should call one of the functions "check_warning" or "check_failure"
 # (depending on the severity of the problem).
 
-# Check whether Netkit man pages are reachable
+# Check whether NETKIT_HOME has been set
 
-check_message "Checking for availability of man pages... "
+check_message "Checking environment... "
 
-if ! echo "${MANPATH}" | grep -qE "(:$NETKIT_HOME\/man\/?$)|(^$NETKIT_HOME\/man\/?:)|(:$NETKIT_HOME\/man\/?:)"; then
+if [ ! 0 ]; then
    echo "failed!"
    echo
-   if [ -z "$MANPATH" ]; then
-      NEW_MANPATH=":${NETKIT_HOME%/}/man"
-   else
-      NEW_MANPATH="\$MANPATH::${NETKIT_HOME%/}/man"
-   fi
-   echo "*** Warning: the environment variable MANPATH is not properly set. This"
-   echo "will make man pages inaccessible. You should set it to the following"
-   echo "value (all colons must be included):"
+   echo "*** Error: the environment variable NETKIT_HOME is not set. You should"
+   echo "set it to the following value:"
    echo
-   echo $NEW_MANPATH
+   echo $PWD
    echo
    echo "You can use one of the following commands, depending on the shell you"
    echo "are using:"
    echo
-   echo "(for bash) export MANPATH=$NEW_MANPATH"
-   echo "(for csh)  setenv MANPATH $NEW_MANPATH"
+   echo "(for bash) export NETKIT_HOME=$PWD"
+   echo "(for csh)  setenv NETKIT_HOME $PWD"
    echo
-   check_warning
+   check_failure
 else
-   echo "passed."
+   if [ "[@]netkitdir[@]" != "$PWD" -a "[@]netkitdir[@]" != "${PWD}/" ]; then
+      echo "failed!"
+      echo
+      echo "*** Error: the environment variable NETKIT_HOME currently points at the"
+      echo "wrong directory:"
+      echo
+      echo "(current value) [@]netkitdir[@]"
+      echo "(should be)     $PWD"
+      echo
+      echo "In order to fix this, you can use one of the following commands, depending"
+      echo "on the shell you are using:"
+      echo
+      echo "(for bash) export NETKIT_HOME=$PWD"
+      echo "(for csh)  setenv NETKIT_HOME $PWD"
+      echo
+      check_failure
+   else
+      echo "passed."
+   fi
 fi
+
+NETKIT_BIN_DIR=[@]netkitdir[@]/bin

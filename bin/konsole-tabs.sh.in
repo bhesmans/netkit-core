@@ -114,7 +114,7 @@ while [ -z "$NETKIT_KONSOLE" ]; do
            ! -f /tmp/nk_konsole_forced_starting_${USER}.lock ]; then
          : > /tmp/nk_konsole_starting_${USER}.lock
          : > /tmp/nk_konsole_forced_starting_${USER}.lock
-         [ ! -f $HOME/.kde/share/apps/konsole/Netkit-konsole.profile ] && cp $NETKIT_HOME/Netkit-konsole.profile $HOME/.kde/share/apps/konsole/
+         [ ! -f $HOME/.kde/share/apps/konsole/Netkit-konsole.profile ] && cp [@]netkitdir[@]/Netkit-konsole.profile $HOME/.kde/share/apps/konsole/
          konsole --name netkit-konsole --profile "Netkit-konsole" --nofork 2>/dev/null &
          # Due to some strange behavior (bug?), the applicationName property
          # does not seem to be properly set by the --name command line option:

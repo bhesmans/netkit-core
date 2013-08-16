@@ -33,7 +33,7 @@
 
 check_message "Checking whether 32-bit executables can run... "
 
-if ! $NETKIT_HOME/kernel/netkit-kernel --help >/dev/null 2>&1; then
+if ! [@]netkitdir[@]/kernel/netkit-kernel --help >/dev/null 2>&1; then
    echo "failed!"
    echo
    echo "*** Error: Your system appears not to be able to run 32 bit applications."

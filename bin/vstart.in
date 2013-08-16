@@ -24,9 +24,8 @@
 SCRIPTNAME=`basename $0`
 
 # The following line has been introduced to ensure backward compatibility
-: ${NETKIT_HOME:=$VLAB_HOME}
 
-if [ -z "$NETKIT_HOME" ]; then
+if [ ! 0 ]; then
    echo 1>&2 "$SCRIPTNAME: The NETKIT_HOME environment variable is not properly set;"
    echo 1>&2 "please set it as described in the Netkit documentation and try"
    echo 1>&2 "again."
@@ -35,7 +34,7 @@ fi
 
 CMDLINE="$0 $*"
 
-. "$NETKIT_HOME/bin/script_utils"
+. "[@]netkitdir[@]/bin/script_utils"
 
 # Write to the vcommands log
 logWrite $0 $*
@@ -644,7 +643,7 @@ fi
 if [ $VM_CON0 = "xterm" -a "$CON0_PORTHELPER" != "yes" ]; then
    case "$TERM_TYPE" in
       konsole)       KERNELCMD="konsole --nofork --title $VM_NAME -e $KERNELCMD";;
-      konsole-tab)   KERNELCMD="$NETKIT_HOME/bin/konsole-tabs.sh -e $KERNELCMD";;
+      konsole-tab)   KERNELCMD="[@]netkitdir[@]/bin/konsole-tabs.sh -e $KERNELCMD";;
       gnome)         KERNELCMD="gnome-terminal --disable-factory -x $KERNELCMD";;
       *)             KERNELCMD="xterm -e $KERNELCMD";;
    esac
@@ -680,7 +679,7 @@ if [ ! -z "$TERM_TYPE" ]; then
       konsole)
          KERNELCMD="$KERNELCMD xterm=konsole,-T,-e";;
       konsole-tab)
-         KERNELCMD="$KERNELCMD xterm=$NETKIT_HOME/bin/konsole-tabs.sh,-T,-e";;
+         KERNELCMD="$KERNELCMD xterm=[@]netkitdir[@]/bin/konsole-tabs.sh,-T,-e";;
       gnome)
          KERNELCMD="$KERNELCMD xterm=gnome-terminal,-t,-x";;
       xterm) ;;
@@ -705,7 +704,7 @@ fi
 ### it ever hangs when booting the virtual machine.
 WAKEUP_PORTHELPER=""
 if [ "$CON0_PORTHELPER" = "yes" ]; then
-   WAKEUP_PORTHELPER="{ sleep 5; $NETKIT_HOME/bin/uml_mconsole $VM_NAME help > /dev/null 2>&1; } &"
+   WAKEUP_PORTHELPER="{ sleep 5; [@]netkitdir[@]/bin/uml_mconsole $VM_NAME help > /dev/null 2>&1; } &"
 fi
 
 ### Remove .disk file, if requested
