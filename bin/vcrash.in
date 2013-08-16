@@ -36,7 +36,7 @@ fi
 
 CMDLINE="$0 $*"
 
-. "[@]netkitdir[@]/bin/script_utils"
+. "@netkitdir@/bin/script_utils"
 
 # Write to the vcommands log
 logWrite $0 $*

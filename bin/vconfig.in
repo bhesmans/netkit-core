@@ -38,7 +38,7 @@ fi
 
 CMDLINE="$0 $*"
 
-. "[@]netkitdir[@]/bin/script_utils"
+. "@netkitdir@/bin/script_utils"
 
 # Write to the vcommands log
 logWrite $0 $*
@@ -313,8 +313,8 @@ invokeMconsole() {
             print "INTERFACE=" $1
          }'`
       eval "$EVAL_THIS"
-      run_command "$JUST_PRINT" "[@]netkitdir[@]/bin/uml_mconsole $VMINFO_NAME $ACTION" \
-         "[@]netkitdir[@]/bin/uml_mconsole $VMINFO_NAME $ACTION 2>&1 | \
+      run_command "$JUST_PRINT" "@netkitdir@/bin/uml_mconsole $VMINFO_NAME $ACTION" \
+         "@netkitdir@/bin/uml_mconsole $VMINFO_NAME $ACTION 2>&1 | \
           awk '/^ERR/ {gsub(\"^ERR *\", \"\"); print \"Failed to '$ACTION_DESC' interface: \" \$0}' 2>&1"
       shift
    done

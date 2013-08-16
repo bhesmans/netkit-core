@@ -60,12 +60,12 @@ The first step is to set the environment variable NETKIT_HOME to the name of the
 directory Netkit has been installed into. Versions of Netkit prior to 2 used
 variable VLAB_HOME. Such variable is supported as well, but you are encouraged
 not to use it. In order to access the Netkit man pages, the MANPATH variable
-must be set to ":[@]netkitdir[@]/man". For example, assuming that you have
+must be set to ":@netkitdir@/man". For example, assuming that you have
 installed Netkit to /home/foo/netkit and that your shell is bash, you would use
 the following commands:
 
   export NETKIT_HOME=/home/foo/netkit
-  export MANPATH=:[@]netkitdir[@]/man
+  export MANPATH=:@netkitdir@/man
 
 It may also be useful to put these lines inside your shell initialization file
 (`.bashrc' in case you are using the bash shell). Consult your shell
@@ -74,10 +74,10 @@ documentation for more information about this.
 After doing this, you need to update your PATH environment variable to include
 the path to the standard Netkit commands. This is required in order to make
 Netkit work properly. The entry you need to add to the PATH is
-"[@]netkitdir[@]/bin". For example, assuming Netkit is (still) installed into
+"@netkitdir@/bin". For example, assuming Netkit is (still) installed into
 /home/foo/netkit and that your shell is (still) bash, you would type:
 
-  export PATH=[@]netkitdir[@]/bin:$PATH
+  export PATH=@netkitdir@/bin:$PATH
 
 Again, it may be convenient to put this line inside your shell initialization
 file.
@@ -138,5 +138,5 @@ In order to activate it, first of all make sure your shell is bash:
 
 If it is, then you can safely add the following line at the end of your ~/.bashrc file:
 
-  . [@]netkitdir[@]/bin/netkit_bash_completion
+  . @netkitdir@/bin/netkit_bash_completion
 

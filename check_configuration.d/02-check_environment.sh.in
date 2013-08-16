@@ -48,13 +48,13 @@ if [ ! 0 ]; then
    echo
    check_failure
 else
-   if [ "[@]netkitdir[@]" != "$PWD" -a "[@]netkitdir[@]" != "${PWD}/" ]; then
+   if [ "@netkitdir@" != "$PWD" -a "@netkitdir@" != "${PWD}/" ]; then
       echo "failed!"
       echo
       echo "*** Error: the environment variable NETKIT_HOME currently points at the"
       echo "wrong directory:"
       echo
-      echo "(current value) [@]netkitdir[@]"
+      echo "(current value) @netkitdir@"
       echo "(should be)     $PWD"
       echo
       echo "In order to fix this, you can use one of the following commands, depending"
@@ -69,4 +69,4 @@ else
    fi
 fi
 
-NETKIT_BIN_DIR=[@]netkitdir[@]/bin
+NETKIT_BIN_DIR=@netkitdir@/bin

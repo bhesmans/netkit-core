@@ -34,7 +34,7 @@ fi
 
 CMDLINE="$0 $*"
 
-. "[@]netkitdir[@]/bin/script_utils"
+. "@netkitdir@/bin/script_utils"
 
 
 # Write to the vcommands log
@@ -152,7 +152,7 @@ fi
 
 # If no lab directory has been given, assume current directory
 LAB_DIRECTORY=${LAB_DIRECTORY:-${PWD}}
-. "[@]netkitdir[@]/bin/lcommon"
+. "@netkitdir@/bin/lcommon"
 
 # Check that the lab directory exists
 if [ ! -d "$LAB_DIRECTORY" ]; then

@@ -34,7 +34,7 @@ fi
 
 CMDLINE="$0 $*"
 
-. "[@]netkitdir[@]/bin/script_utils"
+. "@netkitdir@/bin/script_utils"
 
 # Write to the vcommands log
 logWrite $0 $*
@@ -322,18 +322,18 @@ if [ ! -z "$REMOVE_TUNNELS" ]; then
       # reasons (depends on the configuration in sudoers, and may happen even
       # when using -E)
       PRESERVE_ENV=$(env | egrep "(^NETKIT)|(^PATH=)")
-      TUNTAP_COMMAND="sudo -p \"$USER's password:\" /bin/sh -c \"eval $PRESERVE_ENV; [@]netkitdir[@]/bin/manage_tuntap stop\""
+      TUNTAP_COMMAND="sudo -p \"$USER's password:\" /bin/sh -c \"eval $PRESERVE_ENV; @netkitdir@/bin/manage_tuntap stop\""
    else
-      TUNTAP_COMMAND="su -mc \"[@]netkitdir[@]/bin/manage_tuntap stop\""
+      TUNTAP_COMMAND="su -mc \"@netkitdir@/bin/manage_tuntap stop\""
    fi
    if [ -z "$BE_QUIET" ]; then   
       run_command "" \
-                  "[@]netkitdir[@]/bin/manage_tuntap stop" \
+                  "@netkitdir@/bin/manage_tuntap stop" \
                   "$TUNTAP_COMMAND" || \
                      { echo 1>&2 "Error while removing tap configurations"; exit 1; }
    else
       run_command "" \
-                  "[@]netkitdir[@]/bin/manage_tuntap stop" \
+                  "@netkitdir@/bin/manage_tuntap stop" \
                   "$TUNTAP_COMMAND\"" >/dev/null || \
                      { echo 1>&2 "Error while removing tap configurations"; exit 1; }
    fi

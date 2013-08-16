@@ -79,7 +79,7 @@ for CURRENT_COMMAND in $TERMINAL_EMULATORS; do
          # Clean the PATH_TO_BE_USED variable, in order to suppress
          # warnings concerning unavailability of the current tool.
          PATH_TO_BE_USED=":"
-         ln -fs "$COMMAND_DIR" "[@]netkitdir[@]/bin"
+         ln -fs "$COMMAND_DIR" "@netkitdir@/bin"
          echo -n " (fixed)"
          OK=1
       fi

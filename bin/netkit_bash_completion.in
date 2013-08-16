@@ -35,13 +35,13 @@ fi
 # because this would result in several environment variables (e.g., VM_MEMORY,
 # etc.) being permanently fixed in the user's environment, which is not what we
 # want.
-MAX_INTERFACES=$( . "[@]netkitdir[@]/bin/script_utils"; echo $MAX_INTERFACES; )
+MAX_INTERFACES=$( . "@netkitdir@/bin/script_utils"; echo $MAX_INTERFACES; )
 
 _command_options() {
    # Long options
-   [@]netkitdir[@]/bin/$1 --help | sed -r '/^ +-/!d; /--[-[:alnum:]]+=?/!d; s/.*(--[-[:alnum:]]+=?).*/\1/' | sort | uniq
+   @netkitdir@/bin/$1 --help | sed -r '/^ +-/!d; /--[-[:alnum:]]+=?/!d; s/.*(--[-[:alnum:]]+=?).*/\1/' | sort | uniq
    # Short options
-   [@]netkitdir[@]/bin/$1 --help | sed -r '/^ +-/!d; /^ +-[^ -]/!d; s/^ +(-[^ -]).*/\1/' | sort | uniq
+   @netkitdir@/bin/$1 --help | sed -r '/^ +-/!d; /^ +-[^ -]/!d; s/^ +(-[^ -]).*/\1/' | sort | uniq
 }
 
 _intelligent_space() {

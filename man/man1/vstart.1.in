@@ -531,7 +531,7 @@ is automatically created in the current directory as soon as virtual machine
 differences between the model filesystem and the current filesystem contents.
 .TP
 .I
-[@]netkitdir[@]/netkit.conf
+@netkitdir@/netkit.conf
 .TP
 .I
 /etc/netkit.conf
