@@ -122,6 +122,7 @@ Console settings can be altered by the following options:
                                      terminal; only one console at a time can
                                      be set to "this" mode)
                           pty        attach to a pseudo-terminal
+                          pts        attach to a pseudo-terminal
                           port:xxx   attach to TCP port xxx
                           none       disable console (only valid with con1)
 END_OF_HELP
@@ -275,7 +276,7 @@ parseCmdLine() {
             shift; CURRENT_ARGUMENT="$1"
             checkSpaces "$CURRENT_ARGUMENT"
             case "$CURRENT_ARGUMENT" in
-               xterm|this|pty|port:*|none)   VM_CON0=$CURRENT_ARGUMENT;;
+               xterm|this|pty|pts|port:*|none)   VM_CON0=$CURRENT_ARGUMENT;;
                *)
                   warning "$SCRIPTNAME" "$CMDLINE" "$0" \
                           "Unrecognized device for con0: $CURRENT_ARGUMENT."
@@ -286,7 +287,7 @@ parseCmdLine() {
             shift; CURRENT_ARGUMENT="$1"
             checkSpaces "$CURRENT_ARGUMENT"
             case "$CURRENT_ARGUMENT" in
-               xterm|this|pty|port:*|none)   VM_CON1=$CURRENT_ARGUMENT;;
+               xterm|this|pty|pts|port:*|none)   VM_CON1=$CURRENT_ARGUMENT;;
                *)
                   warning "$SCRIPTNAME" "$CMDLINE" "$0" \
                           "Unrecognized device for con1: $CURRENT_ARGUMENT."
@@ -657,6 +658,7 @@ case $VM_CON0 in
    xterm)   KERNELCMD="$KERNELCMD con0=xterm";;
    this|this_noporthelper)    KERNELCMD="$KERNELCMD con0=fd:0,fd:1";;
    pty)     KERNELCMD="$KERNELCMD con0=pty";;
+   pts)     KERNELCMD="$KERNELCMD con0=pts";;
    port:*)  KERNELCMD="$KERNELCMD con0=${VM_CON0}";;
 esac
 case $VM_CON1 in
@@ -664,6 +666,7 @@ case $VM_CON1 in
    xterm)   KERNELCMD="$KERNELCMD con1=xterm";;
    this)    KERNELCMD="$KERNELCMD con1=fd:0,fd:1";;
    pty)     KERNELCMD="$KERNELCMD con1=pty";;
+   pts)     KERNELCMD="$KERNELCMD con1=pts";;
    port:*)  KERNELCMD="$KERNELCMD con1=${VM_CON1}";;
 esac
 
