@@ -533,7 +533,7 @@ fi
 
 
 ##### Setup kernel modules directory
-eval KERNEL_MODULES_DIRECTORY=`dirname $VM_KERNEL`/modules
+eval KERNEL_MODULES_DIRECTORY=@netkitdir@/../netkituml/modules
 if [ -d $KERNEL_MODULES_DIRECTORY ]; then
    [ -z "$BE_QUIET" ] && echo "   Modules:    $KERNEL_MODULES_DIRECTORY"
    KERNELCMD="$KERNELCMD modules=$KERNEL_MODULES_DIRECTORY"
